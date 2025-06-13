@@ -8,6 +8,10 @@ import (
 
 type ImageProcessingUsecase struct{}
 
+func NewImageProcessingUsecase() *ImageProcessingUsecase {
+	return &ImageProcessingUsecase{}
+}
+
 func (c *ImageProcessingUsecase) Resize(filePath string, outputPath string, size int) error {
 	buffer, err := bimg.Read(filePath)
 	if err != nil {
@@ -23,6 +27,7 @@ func (c *ImageProcessingUsecase) Resize(filePath string, outputPath string, size
 	}
 
 	var croppedImage []byte
+	fmt.Sprintf("%dx%d", imageSize.Width, imageSize.Height)
 	if imageSize.Width > imageSize.Height {
 		croppedImage, err = image.CropByHeight(imageSize.Height)
 		if err != nil {

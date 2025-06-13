@@ -8,8 +8,10 @@ import (
 type RouteConfig struct {
 	R                     *gin.Engine
 	HealthcheckController *http.HealthcheckController
+	UserController        *http.UserController
 }
 
 func (c *RouteConfig) SetupGuestRoute() {
 	c.R.GET("/ping", c.HealthcheckController.Ping)
+	c.R.POST("/user/profile-picture", c.UserController.UpdateProfilePicture)
 }
