@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
 	"temporal-poc/internal/delivery/http"
 	"temporal-poc/internal/delivery/http/route"
@@ -14,6 +15,7 @@ func main() {
 	healthcheckController := http.NewHealthcheckController()
 	userController := http.NewUserController(userUsecase)
 	r := gin.Default()
+	r.Use(requestid.New())
 
 	routeConfig := &route.RouteConfig{
 		R:                     r,
