@@ -33,8 +33,16 @@ func (c *UserUsecase) UpdateProfilePicture(ctx *gin.Context, file *multipart.Fil
 		return err
 	}
 
-	outputFilename := "assets/images/" + uuid.String() + ".png"
-	err = c.ImageProcessingUsecase.Resize(filename, outputFilename, 100)
+	uuidString := uuid.String()
+	outputFilename := "assets/images/" + uuidString + ".jpg"
+	err = c.ImageProcessingUsecase.Resize(filename, outputFilename, 256)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	thumbnailFilename := "assets/thumbnails/" + uuidString + ".jpg"
+	err = c.ImageProcessingUsecase.Resize(filename, thumbnailFilename, 64)
 	if err != nil {
 		fmt.Println(err)
 		return err
