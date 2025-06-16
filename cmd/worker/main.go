@@ -2,8 +2,8 @@ package main
 
 import (
 	"log"
+	"temporal-poc/internal/activity"
 	"temporal-poc/internal/common/constants"
-	"temporal-poc/internal/helper"
 	"temporal-poc/internal/repository"
 	"temporal-poc/internal/workflow"
 
@@ -19,17 +19,15 @@ func main() {
 	}
 	defer c.Close()
 
-	w := worker.New(c, constants.UPDATE_PROFILE_PICTURE_WORKFLOW_ID, worker.Options{})
-	imageProcessingHelper := helper.NewImageProcessingHelper()
+	w := worker.New(c, constants.UpdateProfilePictureWorkflowId, worker.Options{})
 	userRepository := repository.NewUserRepository()
-	notificationRepository := repository.NewNotificationRepository()
+	userActivity := activity.NewUserActivity(userRepository)
 
 	// This worker hosts both Workflow and Activity functions.
 	w.RegisterWorkflow(workflow.UpdateProfilePictureWorkflow)
-	w.RegisterActivity(imageProcessingHelper.Resize)
-	w.RegisterActivity(userRepository.Get)
-	w.RegisterActivity(userRepository.Update)
-	w.RegisterActivity(notificationRepository.SendNotification)
+	w.RegisterActivity(userActivity.GetUser)
+	w.RegisterActivity(userActivity.UpdateUser)
+	w.RegisterActivity(userActivity.SendNotification)
 
 	// Start listening to the Task Queue.
 	err = w.Run(worker.InterruptCh())

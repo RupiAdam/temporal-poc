@@ -1,3 +1,4 @@
 package constants
 
-const UPDATE_PROFILE_PICTURE_WORKFLOW_ID = "update-profile-picture-workflow"
+const UpdateProfilePictureWorkflowId = "UPDATE-PROFILE-PICTURE-WORKFLOW"
+const UpdateProfilePictureTaskQueue = "UPDATE-PROFILE-PICTURE-TASK-QUEUE"

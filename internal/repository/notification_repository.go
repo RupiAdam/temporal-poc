@@ -6,13 +6,7 @@ import (
 	"net/http"
 )
 
-type NotificationRepository struct{}
-
-func NewNotificationRepository() *NotificationRepository {
-	return &NotificationRepository{}
-}
-
-func (c *NotificationRepository) SendNotification() (map[string]interface{}, error) {
+func SendNotification() (map[string]interface{}, error) {
 	var err error
 	var client = &http.Client{}
 	var data map[string]interface{}

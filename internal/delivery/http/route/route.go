@@ -14,4 +14,5 @@ type RouteConfig struct {
 func (c *RouteConfig) SetupGuestRoute() {
 	c.R.GET("/ping", c.HealthcheckController.Ping)
 	c.R.POST("/user/profile-picture", c.UserController.UpdateProfilePicture)
+	c.R.POST("/user/profile-picture/workflow", c.UserController.UpdateProfilePictureUsingWorkflow)
 }

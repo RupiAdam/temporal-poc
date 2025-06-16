@@ -2,8 +2,6 @@ package repository
 
 import (
 	"fmt"
-	"github.com/gin-contrib/requestid"
-	"github.com/gin-gonic/gin"
 	"math/rand"
 	"temporal-poc/internal/model"
 	"time"
@@ -15,7 +13,7 @@ func NewUserRepository() *UserRepository {
 	return &UserRepository{}
 }
 
-func (c *UserRepository) Get(ctx *gin.Context) (*model.UserModel, error) {
+func (c *UserRepository) Get() (*model.UserModel, error) {
 	// Random seed for better randomness each run
 	rand.Seed(time.Now().UnixNano())
 
@@ -25,10 +23,10 @@ func (c *UserRepository) Get(ctx *gin.Context) (*model.UserModel, error) {
 
 	// Simulate 40% failure rate
 	if rand.Float64() < 0.4 {
-		return nil, fmt.Errorf("[%v] intermittent error occurred after %v delay", requestid.Get(ctx), delay)
+		return nil, fmt.Errorf("intermittent error occurred after %v delay", delay)
 	}
 
-	fmt.Printf("[%v] Task completed successfully after %v delay\n", requestid.Get(ctx), delay)
+	fmt.Printf("Task completed successfully after %v delay\n", delay)
 	user := &model.UserModel{
 		Id:             "12345",
 		Name:           "John Doe",
@@ -38,7 +36,7 @@ func (c *UserRepository) Get(ctx *gin.Context) (*model.UserModel, error) {
 	return user, nil
 }
 
-func (c *UserRepository) Update(ctx *gin.Context) error {
+func (c *UserRepository) Update() error {
 	// Random seed for better randomness each run
 	rand.Seed(time.Now().UnixNano())
 
@@ -48,9 +46,9 @@ func (c *UserRepository) Update(ctx *gin.Context) error {
 
 	// Simulate 40% failure rate
 	if rand.Float64() < 0.4 {
-		return fmt.Errorf("[%v] intermittent error occurred after %v delay", requestid.Get(ctx), delay)
+		return fmt.Errorf("intermittent error occurred after %v delay", delay)
 	}
 
-	fmt.Printf("[%v] Task completed successfully after %v delay\n", requestid.Get(ctx), delay)
+	fmt.Printf("Task completed successfully after %v delay\n", delay)
 	return nil
 }
