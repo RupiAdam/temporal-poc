@@ -3,18 +3,18 @@ package http
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"temporal-poc/internal/helper"
 	"temporal-poc/internal/usecase"
-	"temporal-poc/internal/utilities"
 )
 
 type UserController struct {
-	ResponseHelper utilities.ResponseHelper
+	ResponseHelper helper.ResponseHelper
 	UserUsecase    *usecase.UserUsecase
 }
 
 func NewUserController(usecase *usecase.UserUsecase) *UserController {
 	return &UserController{
-		ResponseHelper: utilities.ResponseHelper{},
+		ResponseHelper: helper.ResponseHelper{},
 		UserUsecase:    usecase,
 	}
 }

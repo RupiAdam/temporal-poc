@@ -5,11 +5,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"temporal-poc/internal/delivery/http"
 	"temporal-poc/internal/delivery/http/route"
+	"temporal-poc/internal/helper"
 	"temporal-poc/internal/usecase"
 )
 
 func main() {
-	imageProcessingUsecase := usecase.NewImageProcessingUsecase()
+	imageProcessingUsecase := helper.NewImageProcessingHelper()
 	userUsecase := usecase.NewUserUsecase(imageProcessingUsecase)
 
 	healthcheckController := http.NewHealthcheckController()

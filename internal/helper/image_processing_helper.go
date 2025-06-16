@@ -1,4 +1,4 @@
-package usecase
+package helper
 
 import (
 	"fmt"
@@ -6,13 +6,13 @@ import (
 	"os"
 )
 
-type ImageProcessingUsecase struct{}
+type ImageProcessingHelper struct{}
 
-func NewImageProcessingUsecase() *ImageProcessingUsecase {
-	return &ImageProcessingUsecase{}
+func NewImageProcessingHelper() *ImageProcessingHelper {
+	return &ImageProcessingHelper{}
 }
 
-func (c *ImageProcessingUsecase) Resize(filePath string, outputPath string, targetSize int) error {
+func (c *ImageProcessingHelper) Resize(filePath string, outputPath string, targetSize int) error {
 	buffer, err := bimg.Read(filePath)
 	if err != nil {
 		fmt.Println(os.Stderr, err)

@@ -5,13 +5,14 @@ import (
 	"github.com/gin-gonic/gin"
 	uuid2 "github.com/google/uuid"
 	"mime/multipart"
+	"temporal-poc/internal/helper"
 )
 
 type UserUsecase struct {
-	ImageProcessingUsecase *ImageProcessingUsecase
+	ImageProcessingUsecase *helper.ImageProcessingHelper
 }
 
-func NewUserUsecase(imageProcessingUsecase *ImageProcessingUsecase) *UserUsecase {
+func NewUserUsecase(imageProcessingUsecase *helper.ImageProcessingHelper) *UserUsecase {
 	return &UserUsecase{
 		ImageProcessingUsecase: imageProcessingUsecase,
 	}

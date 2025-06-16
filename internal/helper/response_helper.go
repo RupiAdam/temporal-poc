@@ -1,4 +1,4 @@
-package utilities
+package helper
 
 import (
 	"github.com/gin-contrib/requestid"
