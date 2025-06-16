@@ -18,7 +18,7 @@ func (c *UserRepository) Get() (*model.UserModel, error) {
 	rand.Seed(time.Now().UnixNano())
 
 	// Random delay between 1s to 2m
-	delay := time.Duration(1+rand.Intn(120)) * time.Second
+	delay := time.Duration(1+rand.Intn(30)) * time.Second
 	time.Sleep(delay)
 
 	// Simulate 40% failure rate
@@ -41,7 +41,7 @@ func (c *UserRepository) Update() error {
 	rand.Seed(time.Now().UnixNano())
 
 	// Random delay between 1s to 2m
-	delay := time.Duration(1+rand.Intn(120)) * time.Second
+	delay := time.Duration(1+rand.Intn(30)) * time.Second
 	time.Sleep(delay)
 
 	// Simulate 40% failure rate

@@ -17,7 +17,7 @@ func UpdateProfilePictureWorkflow(ctx workflow.Context) (string, error) {
 		InitialInterval:        time.Second,
 		BackoffCoefficient:     2.0,
 		MaximumInterval:        100 * time.Second,
-		MaximumAttempts:        500, // 0 is unlimited retries
+		MaximumAttempts:        10, // 0 is unlimited retries
 		NonRetryableErrorTypes: []string{"ImageProcessError", "InvalidFileError"},
 	}
 
