@@ -22,12 +22,14 @@ func main() {
 	w := worker.New(c, constants.UPDATE_PROFILE_PICTURE_WORKFLOW_ID, worker.Options{})
 	imageProcessingHelper := helper.NewImageProcessingHelper()
 	userRepository := repository.NewUserRepository()
+	notificationRepository := repository.NewNotificationRepository()
 
 	// This worker hosts both Workflow and Activity functions.
 	w.RegisterWorkflow(workflow.UpdateProfilePictureWorkflow)
 	w.RegisterActivity(imageProcessingHelper.Resize)
 	w.RegisterActivity(userRepository.Get)
 	w.RegisterActivity(userRepository.Update)
+	w.RegisterActivity(notificationRepository.SendNotification)
 
 	// Start listening to the Task Queue.
 	err = w.Run(worker.InterruptCh())
