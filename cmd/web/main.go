@@ -7,7 +7,6 @@ import (
 	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
 	"temporal-poc/internal/config"
-	"temporal-poc/internal/di"
 )
 
 func main() {
@@ -17,7 +16,7 @@ func main() {
 	r.Use(requestid.New())
 	r.Use(gin.Recovery())
 
-	dep, err := di.InitDependencies(r)
+	dep, err := InitDependencies(r)
 	if err != nil {
 		log.Fatalf("Failed to initialize dependencies: %v", err)
 		return

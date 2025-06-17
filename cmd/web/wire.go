@@ -1,7 +1,7 @@
 //go:build wireinject
 // +build wireinject
 
-package di
+package main
 
 import (
 	"github.com/gin-gonic/gin"
@@ -12,13 +12,13 @@ import (
 	"temporal-poc/internal/usecase"
 )
 
-type Handlers struct {
+type Dependencies struct {
 	Route                 *route.RouteConfig
 	HealthcheckController *http.HealthcheckController
 	UserController        *http.UserController
 }
 
-func InitDependencies(r *gin.Engine) (*Handlers, error) {
+func InitDependencies(r *gin.Engine) (*Dependencies, error) {
 	wire.Build(
 		helper.NewImageProcessingHelper,
 
@@ -29,7 +29,7 @@ func InitDependencies(r *gin.Engine) (*Handlers, error) {
 
 		route.NewRouteConfig,
 
-		wire.Struct(new(Handlers), "*"),
+		wire.Struct(new(Dependencies), "*"),
 	)
-	return &Handlers{}, nil
+	return &Dependencies{}, nil
 }
