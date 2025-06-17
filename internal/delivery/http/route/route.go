@@ -11,6 +11,14 @@ type RouteConfig struct {
 	UserController        *http.UserController
 }
 
+func NewRouteConfig(r *gin.Engine, healthcheckController *http.HealthcheckController, userController *http.UserController) *RouteConfig {
+	return &RouteConfig{
+		R:                     r,
+		HealthcheckController: healthcheckController,
+		UserController:        userController,
+	}
+}
+
 func (c *RouteConfig) SetupGuestRoute() {
 	c.R.GET("/ping", c.HealthcheckController.Ping)
 	c.R.POST("/user/profile-picture", c.UserController.UpdateProfilePicture)
