@@ -1,8 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
+	"log"
+	"temporal-poc/internal/config"
 	"temporal-poc/internal/delivery/http"
 	"temporal-poc/internal/delivery/http/route"
 	"temporal-poc/internal/helper"
@@ -10,6 +13,7 @@ import (
 )
 
 func main() {
+	viper := config.NewViper()
 	imageProcessingUsecase := helper.NewImageProcessingHelper()
 	userUsecase := usecase.NewUserUsecase(imageProcessingUsecase)
 
@@ -25,5 +29,9 @@ func main() {
 	}
 	routeConfig.SetupGuestRoute()
 
-	r.Run(":8080")
+	port := fmt.Sprintf(":%d", viper.GetInt("app.port"))
+	err := r.Run(port)
+	if err != nil {
+		log.Fatalf("Failed to start server: %v", err)
+	}
 }
